@@ -1,0 +1,8 @@
+{
+    "crons": [
+        {
+            "path": "/api/cron/automaticSalary",
+            "schedule": "0 0 1 * *"
+        }
+    ]
+}

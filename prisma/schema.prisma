@@ -1,0 +1,161 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id              String                        @id @default(cuid())
+  name            String?
+  privilege       Privilege?                    @default(MAIN)
+  username        String?                       @unique
+  password        String?                       @default("123")
+  phoneNumber     String?
+  dateOfBirth     String?
+  creditCard      String?
+  mainID          String?
+  balance         Float                         @default(3000)
+  salary          Float                         @default(7000)
+  mainUser        User?                         @relation("MainSubUser", fields: [mainID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subUser         User[]                        @relation("MainSubUser")
+  transactions    Transactions[]
+  bills           Bills?
+  customBills     CustomBills[]
+  allowance       Allowance[]
+  birthdayVoucher BirthdayVoucherNotification[]
+  payBirthday     PayBirthday[]
+  debits          Debits[]
+  beneficiaries   Beneficiary[]
+
+  @@index([mainID])
+}
+
+model Transactions {
+  id          String       @id @default(cuid())
+  fromId      String?
+  fromName    String
+  toName      String
+  toId        String?
+  amount      Float
+  date        DateTime     @default(now())
+  comment     String
+  toBalance   Float?
+  fromBalance Float?
+  type        TransferType @default(Transferring)
+  User        User?        @relation(fields: [fromId], references: [id], onDelete: Cascade)
+
+  @@index([fromId])
+}
+
+model Bills {
+  id                  String  @id @default(cuid())
+  userId              String  @unique
+  electricity         Float   @default(700)
+  internet            Float   @default(300)
+  water               Float   @default(300)
+  automateElectricity Boolean @default(false)
+  automateInternet    Boolean @default(false)
+  automateWater       Boolean @default(false)
+  paidElectricity     Boolean @default(false)
+  paidInternet        Boolean @default(false)
+  paidWater           Boolean @default(false)
+  User                User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CustomBills {
+  id        String  @id @default(cuid())
+  userId    String
+  title     String
+  amount    Float
+  automated Boolean @default(false)
+  paid      Boolean @default(false)
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, title])
+  @@index([userId])
+}
+
+model Debits {
+  id               String   @id @default(cuid())
+  title            String
+  totalAmount      Float
+  monthlyAmount    Float
+  dateDue          DateTime
+  installmentsLeft Int
+  userId           String
+  User             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, title])
+  @@index([userId])
+}
+
+model Allowance {
+  id     String @id @default(cuid())
+  mainId String
+  subId  String
+  amount Float? @default(0)
+  User   User?  @relation(fields: [mainId], references: [id], onDelete: Cascade)
+
+  @@unique([mainId, subId])
+  @@index([mainId])
+}
+
+model BirthdayVoucherNotification {
+  id             String @id @default(cuid())
+  mainId         String
+  subId          String
+  subDateOfBirth String
+  subUsername    String
+  subName        String
+  User           User   @relation(fields: [mainId], references: [id], onDelete: Cascade)
+
+  @@unique([mainId, subId])
+  @@index([mainId])
+}
+
+model Beneficiary {
+  id                  String @id @default(cuid())
+  userId              String
+  beneficiaryId       String
+  beneficiaryName     String
+  beneficiaryUsername String
+  User                User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, beneficiaryId])
+  @@index([userId])
+}
+
+model PayBirthday {
+  id           String @id @default(cuid())
+  mainId       String
+  mainUsername String
+  subId        String
+  subUsername  String
+  amount       Float
+  date         String
+  User         User   @relation(fields: [mainId], references: [id], onDelete: Cascade)
+
+  @@unique([mainId, subId])
+  @@index([mainId])
+}
+
+enum Privilege {
+  MAIN
+  SUB
+  MAIN2
+}
+
+enum TransferType {
+  Bill_Debit
+  Allowance
+  Transferring
+  Receiving
+  Shopping
+}

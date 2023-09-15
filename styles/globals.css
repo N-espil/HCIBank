@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	#btn1:hover {
+		color: crimson;
+	}
+	.hover-shadow {
+		box-shadow: 0px 2px 3px rgba(11, 2, 23, 0.5);
+	}
+	.full-shadow {
+		box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+	}
+	.PhoneInputInput {
+		border: none;
+		background-color: #fae1d0;
+	}
+
+	.PhoneInputInput:focus-visible {
+		border: none;
+		outline: none;
+	}
+
+	.PhoneInputInput::placeholder {
+		color: #6a747c;
+	}
+
+	/*----------------------------------*/
+	.PhoneInputInputError {
+		border: none;
+		background-color: #fae1d0;
+	}
+
+	.PhoneInputInputError:focus-visible {
+		border: none;
+		outline: none;
+	}
+
+	.PhoneInputInputError::placeholder {
+		color: #eb445a;
+	}
+
+	ion-item {
+		--background: #0000;
+		--ripple-color: purple;
+		--detail-icon-color: white;
+		--detail-icon-opacity: 1;
+		--detail-icon-font-size: 20px;
+	}
+	ion-modal#example-modal {
+		--width: fit-content;
+		--min-width: 250px;
+		--height: fit-content;
+		--border-radius: 6px;
+		--box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+		--background: var(--ion-color-light);
+	}
+
+	ion-modal#example-modal h1 {
+		margin: 20px 20px 10px 20px;
+	}
+
+	ion-modal#example-modal ion-icon {
+		width: 70px;
+		height: 70px;
+		padding: 4px 0;
+	}
+
+	.dash-board-icon {
+		width: 80px;
+		height: 80px;
+		padding: 0;
+	}
+
+	ion-modal#example-modal .wrapper {
+		margin-bottom: 10px;
+	}
+
+	.custom-back-button {
+		display: flex !important;
+		color: white;
+	}
+
+	ion-toolbar {
+		/* --background: #19422d; */
+		/* --color: white; */
+		--border-color: transparent;
+		--border-width: 0px 0px;
+		--border-style: solid;
+		/* --min-height: 80px; */
+		--padding-top: 20px;
+		/* --padding-bottom: 20px; */
+	}
+
+	.btn {
+		text-transform: none;
+	}
+
+	.mix-blend-mode {
+		background-image: url("../public/images/bgOverlay.png");
+		background-color: var(--ion-color-secondary);
+	}
+
+	.overlay {
+		mix-blend-mode: overlay;
+	}
+	#chat-container {
+		overflow-y: auto;
+	}
+
+	.header-title {
+		font-size: 3rem;
+		letter-spacing: 0.2rem;
+		color: #fff;
+		text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+	}
+
+	.header-title span {
+		color: #007bff;
+	}
+
+	.chat-bubble {
+		opacity: 0;
+	}
+
+	.chat-bubble-fade-in {
+		animation-name: chat-bubble-fade-in-animation;
+		animation-duration: 0.3s;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes chat-bubble-fade-in-animation {
+		0% {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.dashboard-container {
+		display: grid;
+		grid-template-columns: 60px 3fr;
+	}
+	.radial-grad {
+		background: radial-gradient(circle, #fae1d0, #adc172);
+	}
+	/* className='flex justify-start w-full p-0 m-0 ' */
+	.menu {
+		overflow: hidden;
+		--nextui--dropdownMenuWidth: 150px !important;
+		--nextui--dropdownMenuMinWidth: 150px !important;
+	}
+
+	.myDropdown {
+		font-size: 1.2rem !important;
+		max-height: 10rem !important;
+		/* height: 2.5rem !important; */
+		line-height: 2.5rem !important;
+		--nextui--dropdownMenuWidth: 150px !important;
+		--nextui--dropdownMenuMinWidth: 150px !important;
+	}
+
+	.blur {
+		position: relative;
+		width: auto;
+		padding: 0;
+		background-color: #ffffff; /* set the background color */
+		border-bottom: 4px solid #000;
+		border-radius: 2rem;
+		overflow: hidden;
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: rgba(
+			255,
+			255,
+			255,
+			0.8
+		); /* set the overlay color with transparency */
+		backdrop-filter: blur(
+			3px
+		); /* create a blurred effect for the overlay */
+		z-index: -1;
+	}
+
+	@keyframes custom-ping {
+		0% {
+			transform: scale(0.5);
+			opacity: 0.3;
+		}
+		50% {
+			transform: scale(1.5);
+			opacity: 0.7;
+		}
+		100% {
+			transform: scale(2);
+			opacity: 0;
+		}
+	}
+
+	.custom-ping {
+		animation: custom-ping 2s ease-in-out infinite;
+	}
+
+	.delayed-custom-ping {
+		animation-delay: 1s;
+	}
+	.nextui-input-label--left {
+		color: red;
+	}
+	.chat-bubble {
+		/* border-radius: 50px; */
+		padding-bottom: 15px;
+	}
+
+	ion-textarea {
+		--background: #fff;
+		--color: #fff;
+		--padding-end: 10px;
+		--padding-start: 10px;
+		--placeholder-color: #ddd;
+		--placeholder-opacity: 0.8;
+	}
+	/* .custom {
+		background-color: white;
+		border-radius: 10px;
+	} */
+}
